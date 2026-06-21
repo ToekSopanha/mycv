@@ -1,0 +1,128 @@
+[
+  {
+    "id": "1",
+    "name": "Python",
+    "category": "Languages",
+    "level": 90,
+    "icon": ""
+  },
+  {
+    "id": "2",
+    "name": "JavaScript",
+    "category": "Languages",
+    "level": 85,
+    "icon": ""
+  },
+  {
+    "id": "3",
+    "name": "Bash/Shell",
+    "category": "Languages",
+    "level": 80,
+    "icon": ""
+  },
+  {
+    "id": "4",
+    "name": "SQL",
+    "category": "Languages",
+    "level": 75,
+    "icon": ""
+  },
+  {
+    "id": "5",
+    "name": "Docker",
+    "category": "DevOps",
+    "level": 88,
+    "icon": ""
+  },
+  {
+    "id": "6",
+    "name": "Kubernetes",
+    "category": "DevOps",
+    "level": 80,
+    "icon": ""
+  },
+  {
+    "id": "7",
+    "name": "Jenkins",
+    "category": "DevOps",
+    "level": 82,
+    "icon": ""
+  },
+  {
+    "id": "8",
+    "name": "Terraform",
+    "category": "DevOps",
+    "level": 78,
+    "icon": ""
+  },
+  {
+    "id": "9",
+    "name": "AWS",
+    "category": "Cloud",
+    "level": 85,
+    "icon": ""
+  },
+  {
+    "id": "10",
+    "name": "Azure",
+    "category": "Cloud",
+    "level": 75,
+    "icon": ""
+  },
+  {
+    "id": "11",
+    "name": "GCP",
+    "category": "Cloud",
+    "level": 70,
+    "icon": ""
+  },
+  {
+    "id": "12",
+    "name": "Vue.js",
+    "category": "Development",
+    "level": 85,
+    "icon": ""
+  },
+  {
+    "id": "13",
+    "name": "React",
+    "category": "Development",
+    "level": 80,
+    "icon": ""
+  },
+  {
+    "id": "14",
+    "name": "Node.js",
+    "category": "Development",
+    "level": 82,
+    "icon": ""
+  },
+  {
+    "id": "15",
+    "name": "Linux Administration",
+    "category": "Network",
+    "level": 88,
+    "icon": ""
+  },
+  {
+    "id": "16",
+    "name": "Networking (TCP/IP, DNS, VPN)",
+    "category": "Network",
+    "level": 85,
+    "icon": ""
+  },
+  {
+    "id": "17",
+    "name": "Ansible",
+    "category": "DevOps",
+    "level": 78,
+    "icon": ""
+  },
+  {
+    "id": "18",
+    "name": "Git",
+    "category": "Tools",
+    "level": 90,
+    "icon": ""
+  }
+]
