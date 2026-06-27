@@ -1,103 +1,60 @@
 [
   {
     "id": "1",
-    "title": "CI/CD Pipeline Automation",
-    "description": "Built a complete CI/CD pipeline using Jenkins, Docker, and Kubernetes that automates testing, building, and deployment of microservices. Reduced deployment time by 70%.",
+    "title": "Telegram Video Download Bot",
+    "description": "This bot downloads videos from Facebook, TikTok, and Instagram. Just paste the video link, and it will fetch the download for you.",
     "tags": [
-      "Jenkins",
-      "Docker",
-      "Kubernetes",
-      "CI/CD",
-      "DevOps"
+      "Python"
     ],
-    "github": "https://github.com/yourname/cicd-pipeline",
+    "github": "https://github.com/ToekSopanha/Telegram_Video_Download.git",
     "live": "",
     "image": "",
     "featured": true,
-    "createdAt": "2024-02-15T00:00:00.000Z"
+    "createdAt": "2024-02-15"
   },
   {
     "id": "2",
-    "title": "Cloud Infrastructure on AWS",
-    "description": "Designed and implemented a scalable cloud infrastructure on AWS using Terraform. Includes VPC, EC2, RDS, S3, and auto-scaling configurations with high availability.",
+    "title": "Meme Website",
+    "description": "Just get Meme from Reddit to display here.",
     "tags": [
-      "AWS",
-      "Terraform",
-      "IaC",
-      "Cloud Architecture"
+      "Vue",
+      "JavaScript",
+      "Python",
+      "Shell",
+      "CSS",
+      "HTML"
     ],
-    "github": "https://github.com/yourname/aws-infrastructure",
+    "github": "https://github.com/ToekSopanha/meme_website.git",
     "live": "",
     "image": "",
     "featured": true,
-    "createdAt": "2024-04-10T00:00:00.000Z"
+    "createdAt": "2024-04-10"
   },
   {
     "id": "3",
-    "title": "Network Monitoring System",
-    "description": "Developed a Python-based network monitoring system using SNMP and network automation tools. Real-time alerting and visualization of network health metrics.",
+    "title": "Myportfolio Hosting Documentation",
+    "description": "This document describes the full production deployment of MyPortfolio — a Vue.js single-page application backed by a Node.js/Express API, served and reverse-proxied through nginx on an Ubuntu server.",
     "tags": [
-      "Python",
-      "Networking",
-      "SNMP",
-      "Monitoring",
-      "Ansible"
+      "Readme"
     ],
-    "github": "https://github.com/yourname/network-monitor",
+    "github": "https://github.com/ToekSopanha/myportfolioHostingDocumentation.git",
     "live": "",
     "image": "",
     "featured": true,
-    "createdAt": "2024-06-20T00:00:00.000Z"
+    "createdAt": "2024-06-20"
   },
   {
     "id": "4",
-    "title": "Multi-Cloud Deployment Tool",
-    "description": "A CLI tool for deploying applications across multiple cloud providers (AWS, Azure, GCP). Supports containerized workloads with unified deployment configuration.",
+    "title": "Myportfolio",
+    "description": "About This Website",
     "tags": [
-      "Python",
-      "AWS",
-      "Azure",
-      "GCP",
-      "CLI"
+      "VueJS",
+      "NodeJS"
     ],
-    "github": "https://github.com/yourname/multicloud-deploy",
+    "github": "https://gitlab.com/ToekSopanha/myportfolio.git",
     "live": "",
     "image": "",
     "featured": true,
-    "createdAt": "2024-08-05T00:00:00.000Z"
-  },
-  {
-    "id": "5",
-    "title": "Portfolio Website",
-    "description": "This portfolio website — built with Vue 3 and Node.js/Express backend. Features a modern responsive design with dark/light themes.",
-    "tags": [
-      "Vue.js",
-      "Node.js",
-      "Express",
-      "JavaScript",
-      "Portfolio"
-    ],
-    "github": "https://github.com/yourname/portfolio",
-    "live": "https://yourportfolio.com",
-    "image": "",
-    "featured": false,
-    "createdAt": "2024-10-01T00:00:00.000Z"
-  },
-  {
-    "id": "6",
-    "title": "Infrastructure as Code Framework",
-    "description": "A comprehensive IaC framework using Ansible and Terraform for automating server provisioning, configuration management, and application deployment.",
-    "tags": [
-      "Ansible",
-      "Terraform",
-      "IaC",
-      "Automation",
-      "Linux"
-    ],
-    "github": "https://github.com/yourname/iac-framework",
-    "live": "",
-    "image": "",
-    "featured": false,
-    "createdAt": "2024-11-15T00:00:00.000Z"
+    "createdAt": "2024-08-05"
   }
 ]

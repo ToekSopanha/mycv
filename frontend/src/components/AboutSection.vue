@@ -85,12 +85,13 @@
 }
 
 .about-image {
-  position: sticky;
+  position: static;
   top: 120px;
 }
 
 .image-wrapper {
   position: relative;
+  overflow-anchor: none;
   width: 290px;
   height: 350px;
   border-radius: var(--radius);
