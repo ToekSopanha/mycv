@@ -1,0 +1,13 @@
+{
+  "greeting": "Hi, my name is",
+  "name": "Toek Sopanha",
+  "titles": [
+    "software solutions",
+    "cloud infrastructure",
+    "CI/CD pipelines",
+    "network architectures",
+    "automation scripts",
+    "scalable systems"
+  ],
+  "bio": "I'm a multi-disciplinary engineer specializing in software development, networking, cloud infrastructure, and DevOps. I build scalable applications, design robust networks, manage cloud environments, and automate deployment pipelines. With a passion for creating efficient, reliable, and secure systems, I deliver end-to-end solutions that drive business value."
+}

@@ -14,7 +14,7 @@
                 <polyline points="21 15 16 10 5 21"/>
               </svg>
             </div>
-            <img v-else :src="project.image" :alt="project.title" />
+            <img v-else :src="resolveImageSrc(project.image)" :alt="project.title" />
             <span v-if="project.featured" class="featured-badge">Featured</span>
           </div>
           <div class="project-content">
@@ -60,12 +60,28 @@ const loading = ref(true)
 async function fetchProjects() {
   try {
     const res = await axios.get('/api/projects')
-    projects.value = res.data
+    projects.value = Array.isArray(res.data) ? res.data : []
   } catch (e) {
-    console.error('Failed to fetch projects')
+    console.warn('Failed to fetch projects', e?.message || e)
   } finally {
     loading.value = false
   }
+}
+
+/**
+ * Resolve an image value from a project record into a usable <img src>.
+ * - Empty / falsy → handled by template (placeholder)
+ * - Full http(s) URL → use as-is
+ * - Bare path starting with /uploads/ → keep as-is; browser resolves against
+ *   current origin. In production the SPA and uploads share an origin
+ *   (nginx), in dev the Vite proxy passes /api through and uploads are
+ *   served by the backend on the same origin in normal setups.
+ */
+function resolveImageSrc(image) {
+  if (!image) return ''
+  if (/^https?:\/\//i.test(image)) return image
+  if (image.startsWith('/')) return image
+  return `/${image}`
 }
 
 onMounted(fetchProjects)
@@ -106,6 +122,16 @@ onMounted(fetchProjects)
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.06);
+}
+
+.project-card:hover .project-image .image-placeholder {
+  color: var(--accent);
 }
 
 .image-placeholder {
@@ -195,6 +221,38 @@ onMounted(fetchProjects)
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .project-image {
+    height: 180px;
+  }
+}
+
+/* Small phones — tighten project card spacing */
+@media (max-width: 480px) {
+  .project-content {
+    padding: 20px;
+  }
+
+  .project-title {
+    font-size: 16px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+  }
+
+  .project-links {
+    flex-wrap: wrap;
+    gap: 12px;
   }
 }
 </style>

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Change this password to your own
 const ADMIN_PASSWORD_HASH = bcrypt.hashSync('admin123', 10);
-const JWT_SECRET = 'portfolio_jwt_secret_change_me';
+const JWT_SECRET = process.env.JWT_SECRET || 'portfolio_jwt_secret_change_me';
 
 // POST /api/auth/login
 router.post('/login', (req, res) => {

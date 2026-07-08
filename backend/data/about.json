@@ -1,0 +1,19 @@
+{
+  "heading": "Hello! I'm Toek Sopanha",
+  "paragraphs": [
+    "I am Toek Sopanha, a dedicated student majoring in Management Information Systems (MIS) at Setec Institute, with expertise spanning software engineering, network infrastructure, cloud platforms, and DevOps practices. My journey into technology has been driven by a passion for building reliable, scalable, and secure systems that power modern businesses.",
+    "I specialize in full-stack development, network design and administration, cloud architecture (AWS, Azure, GCP), and implementing CI/CD pipelines. With hands-on experience in automation, containerization, and infrastructure as code, I help organizations streamline their development and operations workflows."
+  ],
+  "techHeading": "Here are a few technologies I've been working with recently:",
+  "techList": [
+    "Python & JavaScript",
+    "Docker & Kubernetes",
+    "AWS & Azure & GCP",
+    "Terraform & Ansible",
+    "Jenkins & GitHub Actions",
+    "Vue.js & React",
+    "Linux & Networking",
+    "CI/CD & Git"
+  ],
+  "profilePhoto": ""
+}

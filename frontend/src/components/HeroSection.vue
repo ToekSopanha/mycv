@@ -1,9 +1,11 @@
 <template>
   <section id="hero" class="hero">
+    <GradientBackground variant="hero" />
+
     <div class="hero-bg">
       <div class="floating-icons">
-        <div 
-          v-for="(icon, index) in floatingIcons" 
+        <div
+          v-for="(icon, index) in floatingIcons"
           :key="index"
           class="floating-icon"
           :style="getFloatingStyle(index)"
@@ -14,19 +16,26 @@
     </div>
     <div class="container hero-content">
       <div class="hero-text">
-        <p class="greeting fade-in-up">Hi, my name is</p>
+        <p class="greeting fade-in-up">{{ greeting }}</p>
         <h1 class="name fade-in-up" style="animation-delay: 0.1s">
-          Toek Sopanha<span class="dot">.</span>
+          {{ name }}<span class="dot">.</span>
         </h1>
         <h2 class="title fade-in-up" style="animation-delay: 0.2s">
-          I build <span class="typed-text">{{ displayedText }}</span><span class="cursor">|</span>
+          I build <span class="typed-text gradient-text">{{ displayedText }}</span><span class="cursor">|</span>
         </h2>
         <p class="bio fade-in-up" style="animation-delay: 0.3s">
-          I'm a multi-disciplinary engineer specializing in software development, networking, cloud infrastructure, and DevOps. I build scalable applications, design robust networks, manage cloud environments, and automate deployment pipelines. With a passion for creating efficient, reliable, and secure systems, I deliver end-to-end solutions that drive business value.
+          {{ bio }}
         </p>
         <div class="cta fade-in-up" style="animation-delay: 0.4s">
-          <a href="#projects" class="btn btn-primary">Check my work</a>
-          <a href="#contact" class="btn btn-outline">Get in touch</a>
+          <a href="#projects" class="btn-gradient">Check my work</a>
+          <a href="/api/download/cv" class="btn btn-outline" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download CV
+          </a>
         </div>
       </div>
     </div>
@@ -38,15 +47,28 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import GradientBackground from './GradientBackground.vue'
 
-const titles = [
-  'software solutions',
-  'cloud infrastructure',
-  'CI/CD pipelines',
-  'network architectures',
-  'automation scripts',
-  'scalable systems'
-]
+// Default fallback content used if /api/settings fails or returns empty fields.
+const DEFAULTS = {
+  greeting: "Hi, my name is",
+  name: 'Toek Sopanha',
+  titles: [
+    'software solutions',
+    'cloud infrastructure',
+    'CI/CD pipelines',
+    'network architectures',
+    'automation scripts',
+    'scalable systems'
+  ],
+  bio: "I'm a multi-disciplinary engineer specializing in software development, networking, cloud infrastructure, and DevOps. I build scalable applications, design robust networks, manage cloud environments, and automate deployment pipelines. With a passion for creating efficient, reliable, and secure systems, I deliver end-to-end solutions that drive business value."
+}
+
+const greeting = ref(DEFAULTS.greeting)
+const name = ref(DEFAULTS.name)
+const bio = ref(DEFAULTS.bio)
+const titles = ref([...DEFAULTS.titles])
 
 const displayedText = ref('')
 let titleIndex = 0
@@ -76,7 +98,7 @@ function getFloatingStyle(index) {
   const radius = 15 + (index % 3) * 12
   const duration = 25 + (index % 4) * 8
   const delay = index * -5
-  
+
   return {
     left: `${50 + Math.cos(baseAngle) * radius}%`,
     top: `${50 + Math.sin(baseAngle) * radius}%`,
@@ -90,8 +112,11 @@ function getFloatingStyle(index) {
 }
 
 function typeEffect() {
-  const current = titles[titleIndex]
-  
+  const list = titles.value
+  if (!list || list.length === 0) return
+
+  const current = list[titleIndex % list.length]
+
   if (!isDeleting) {
     displayedText.value = current.substring(0, charIndex + 1)
     charIndex++
@@ -105,13 +130,35 @@ function typeEffect() {
     charIndex--
     if (charIndex === 0) {
       isDeleting = false
-      titleIndex = (titleIndex + 1) % titles.length
+      titleIndex = (titleIndex + 1) % list.length
     }
   }
   setTimeout(typeEffect, isDeleting ? 50 : 100)
 }
 
-onMounted(() => {
+async function fetchSettings() {
+  try {
+    const res = await axios.get('/api/settings')
+    const data = res.data || {}
+    if (data.greeting) greeting.value = data.greeting
+    if (data.name) name.value = data.name
+    if (data.bio) bio.value = data.bio
+    if (Array.isArray(data.titles) && data.titles.length > 0) {
+      titles.value = data.titles
+      // Reset typing effect to the start of the new list.
+      titleIndex = 0
+      charIndex = 0
+      isDeleting = false
+      displayedText.value = ''
+    }
+  } catch (e) {
+    // Fallback content is already in place; log for diagnostics.
+    console.warn('Failed to fetch /api/settings, using fallback content.', e?.message || e)
+  }
+}
+
+onMounted(async () => {
+  await fetchSettings()
   setTimeout(typeEffect, 500)
 })
 </script>
@@ -129,11 +176,12 @@ onMounted(() => {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.1), transparent),
     radial-gradient(ellipse 60% 40% at 100% 50%, rgba(59, 130, 246, 0.06), transparent);
   pointer-events: none;
   overflow: hidden;
+  z-index: 0;
 }
 
 .floating-icons {
@@ -206,7 +254,8 @@ onMounted(() => {
 }
 
 .typed-text {
-  color: var(--text-primary);
+  /* color comes from .gradient-text utility (App.vue) */
+  font-weight: 700;
 }
 
 .cursor {
@@ -230,6 +279,7 @@ onMounted(() => {
 .cta {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .scroll-indicator {
@@ -237,6 +287,7 @@ onMounted(() => {
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
 }
 
 .scroll-line {
@@ -255,16 +306,51 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .hero {
-    padding-top: 60px;
+    padding-top: 80px;
   }
-  
+
   .cta {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    width: 100%;
   }
-  
+
+  .cta a {
+    justify-content: center;
+    text-align: center;
+  }
+
   .floating-icon {
     display: none;
+  }
+
+  .bio {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+
+  .greeting {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .scroll-indicator {
+    bottom: 20px;
+  }
+
+  .scroll-line {
+    height: 40px;
+  }
+}
+
+/* Very small phones (< 375px) — defensive size clamp */
+@media (max-width: 375px) {
+  .name {
+    font-size: clamp(32px, 10vw, 44px);
+  }
+
+  .title {
+    font-size: clamp(20px, 6vw, 28px);
   }
 }
 </style>

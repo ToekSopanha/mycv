@@ -23,17 +23,34 @@ import { RouterView } from 'vue-router'
   --bg-secondary: #111113;
   --bg-tertiary: #18181b;
   --bg-card: #1c1c1f;
-  
+
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
-  
+
+  /* Gradient palette: cyan -> purple -> pink */
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  --gradient-primary: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #f472b6 100%);
+
+  /* Backwards compatible accent tokens (now point to the purple middle stop) */
   --accent: #8b5cf6;
   --accent-hover: #a78bfa;
   --accent-subtle: rgba(139, 92, 246, 0.15);
-  
+
   --border: #27272a;
   --border-light: #3f3f46;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Glow */
+  --glow-primary: 0 0 24px rgba(139, 92, 246, 0.35);
+  --glow-cyan: 0 0 24px rgba(6, 182, 212, 0.35);
+  --glow-pink: 0 0 24px rgba(236, 72, 153, 0.35);
 }
 
 [data-theme="light"] {
@@ -41,17 +58,30 @@ import { RouterView } from 'vue-router'
   --bg-secondary: #f4f4f5;
   --bg-tertiary: #e4e4e7;
   --bg-card: #ffffff;
-  
+
   --text-primary: #18181b;
   --text-secondary: #52525b;
   --text-muted: #71717a;
-  
+
+  --accent-cyan: #0891b2;
+  --accent-purple: #7c3aed;
+  --accent-pink: #db2777;
+  --gradient-primary: linear-gradient(135deg, #06b6d4 0%, #7c3aed 50%, #ec4899 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #0891b2 0%, #8b5cf6 50%, #db2777 100%);
+
   --accent: #7c3aed;
   --accent-hover: #8b5cf6;
   --accent-subtle: rgba(124, 58, 237, 0.1);
-  
+
   --border: #e4e4e7;
   --border-light: #d4d4d8;
+
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(24, 24, 27, 0.06);
+
+  --glow-primary: 0 0 24px rgba(124, 58, 237, 0.25);
+  --glow-cyan: 0 0 24px rgba(8, 145, 178, 0.25);
+  --glow-pink: 0 0 24px rgba(219, 39, 119, 0.25);
 }
 
 html {
@@ -66,6 +96,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s, color 0.3s;
+  overflow-x: hidden;
 }
 
 a {
@@ -82,10 +113,38 @@ button {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  width: 100%;
 }
 
 .section-padding {
   padding: 100px 0;
+}
+
+/* ---------- Global responsive breakpoints ---------- */
+/* Mobile: < 640px */
+@media (max-width: 639px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-padding {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 7vw, 36px);
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+  }
+}
+
+/* Tablet: 640–1024px */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .section-padding {
+    padding: 80px 0;
+  }
 }
 
 .section-label {
@@ -190,7 +249,74 @@ button {
   background: var(--accent);
 }
 
-/* Animations */
+/* ---------- Utility classes ---------- */
+
+/* Glassmorphism card surface */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-4px);
+  box-shadow: var(--glow-primary);
+}
+
+/* Gradient-filled primary button */
+.btn-gradient {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  color: #ffffff;
+  background: var(--gradient-primary);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  cursor: pointer;
+  transition: background-position 0.4s ease, transform 0.2s ease, filter 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background-position: 100% 50%;
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-primary);
+}
+
+.btn-gradient:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 3px;
+}
+
+/* Text filled with the gradient palette */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Subtle glow ring used on focus/hover states */
+.glow {
+  box-shadow: var(--glow-primary);
+}
+
+.glow:hover {
+  box-shadow: var(--glow-cyan);
+}
+
+/* ---------- Animations ---------- */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;

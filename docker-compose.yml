@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    restart: unless-stopped
+    environment:
+      DATA_DIR: /app/data
+      PORT: 3001
+      # Adjust if you need to allow additional origins (comma-separated).
+      CORS_ORIGIN: http://localhost
+      # JWT_SECRET should be set in production (e.g. via a .env file).
+      # The fallback below is intentionally weak so the container still boots
+      # locally without configuration, but it MUST be overridden for any
+      # non-dev deployment.
+      JWT_SECRET: ${JWT_SECRET:-change_me_in_production}
+    volumes:
+      - portfolio-data:/app/data
+      - backend-uploads:/app/uploads
+    ports:
+      - "3001:3001"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: portfolio-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN}
+      - EMAIL=${EMAIL}
+    volumes:
+      - letsencrypt:/etc/letsencrypt
+
+volumes:
+  portfolio-data:
+  backend-uploads:
+  letsencrypt:

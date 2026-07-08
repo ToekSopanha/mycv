@@ -1,17 +1,15 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const { verifyToken } = require('./auth');
+const { readJson, writeJson } = require('../lib/dataPath');
+
 const router = express.Router();
 
-const DATA_FILE = path.join(__dirname, '../data/projects.json');
-
 function readData() {
-  return JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+  return readJson('projects.json', []);
 }
 
 function writeData(data) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  writeJson('projects.json', data);
 }
 
 // GET /api/projects — public

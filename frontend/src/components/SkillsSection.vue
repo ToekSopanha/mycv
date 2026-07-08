@@ -195,4 +195,24 @@ onMounted(fetchSkills)
   padding: 40px;
   color: var(--text-secondary);
 }
+
+/* Mobile: stack categories in a single column */
+@media (max-width: 639px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .skill-category {
+    padding: 20px;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
 </style>
